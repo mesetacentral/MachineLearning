@@ -109,9 +109,12 @@ class RandomForest:
 
         X_train = self._delete_not_important_features(X_train)
         self._most_important_features = [0] * X_train.shape[1]
+        logger.debug('length non_important_features: %s', len(self._non_important_features))
+        logger.debug('non_important_features = %s', self._non_important_features)
 
         assert not self._trees  # self._trees == []
         self._create_trees(X_train, y_train)
+        logger.debug("RandomForest built")
 
         for tree_index in range(self._num_trees):
             start_time2 = time.time()
@@ -119,7 +122,7 @@ class RandomForest:
             logger.debug('Tree {} trained in {:.6f} seconds'.format(tree_index + 1, time.time() - start_time2))
         self._get_most_important_features()
         logger.debug('most_important_features: %s', self._most_important_features)
-        logger.info('length most_important_features: %s', len(self._most_important_features))
+        logger.debug('length most_important_features: %s', len(self._most_important_features))
         logger.info('RandomForest training: {:.6f} seconds'.format(time.time() - start_time1))
 
     def predict(self, X_test, y_test):
@@ -152,16 +155,12 @@ class RandomForest:
         self._trees = [DecisionTree(dataset.subset_from_ratio(self.ratio_samples),
                                     self.coefficient, self.values, self._max_depth) for _ in range(self._num_trees)]
 
-        logger.info("RandomForest built")
-
     def _delete_not_important_features(self, X):
         if not self._non_important_features and self._min_std_deviation > 0:
             for feature in range(X.shape[1]):
                 aux = X[:, feature]
                 if np.sqrt(np.var(aux)) < self._min_std_deviation:
                     self._non_important_features.append(feature)
-            logger.info('length non_important_features: %s', len(self._non_important_features))
-            logger.debug('non_important_features = %s', self._non_important_features)
         return np.delete(X, self._non_important_features, 1)
 
     def _train_tree(self, tree_index):

@@ -18,7 +18,14 @@ class Criterion:
         Parameters:
             :param coefficient: (str) coefficient's name
         """
-        self.coefficient = coefficient
+
+        if coefficient == 'Gini':
+            self.coefficient = Gini()
+        elif coefficient == 'MSE':
+            self.coefficient = MSE()
+        else:
+            logger.error('Invalid coefficient %s', self.coefficient)
+            raise NotImplementedError
 
     def compute(self, subset1, subset2):
         """
@@ -28,15 +35,8 @@ class Criterion:
             :param subset1: (DataSet) one of the data sets to compute the coefficient from
             :param subset2: (DataSet) one of the data sets to compute the coefficient from
         """
-        # TODO: Could be better to check if coefficient is ok in init, and build the coefficient calculator there
 
         size1 = subset1.X.shape[0]
         size2 = subset2.X.shape[0]
 
-        if self.coefficient == 'gini':
-            return (Gini(subset1).compute() * size1 + Gini(subset2).compute() * size2)/(size1 + size2)
-        elif self.coefficient == 'MSE':
-            return (MSE(subset1).compute() * size1 + MSE(subset2).compute() * size2)/(size1 + size2)
-        else:
-            logger.error('Invalid coefficient %s', self.coefficient)
-            raise NotImplementedError
+        return (self.coefficient.compute(subset1) * size1 + self.coefficient.compute(subset2) * size2)/(size1 + size2)

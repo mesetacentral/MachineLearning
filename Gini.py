@@ -2,19 +2,19 @@ class Gini:
     """
     Gini coefficient calculator
 
-    Attributes:
-        :param subset: (DataSet) data to compute the coefficient from
+    Methods:
+        compute: calculates the coefficient for a given data set
     """
 
-    def __init__(self, subset):
+    def __init__(self):
+        pass
+
+    def compute(self, subset):
         """
+        Computes Gini coefficient
+
         Parameters:
-            :param subset: (DataSet) data set to compute the coefficient from
+            :param subset: (DataSet) data to calculate the coefficient from
         """
-
-        self.subset = subset
-
-    def compute(self):
-        """Computes Gini coefficient"""
-        squared = [(count/len(self.subset.y))**2 for count in self.subset.counts()]
+        squared = [(count/len(subset.y))**2 for count in subset.counts()]
         return 1 - sum(squared)
