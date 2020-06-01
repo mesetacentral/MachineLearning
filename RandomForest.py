@@ -107,7 +107,7 @@ class RandomForest:
         start_time1 = time.time()
         assert type(X_train) is np.ndarray
 
-        self._delete_not_important_features(X_train)
+        X_train = self._delete_not_important_features(X_train)
         self._most_important_features = [0] * X_train.shape[1]
 
         assert not self._trees  # self._trees == []
@@ -137,7 +137,7 @@ class RandomForest:
         """
 
         start_time = time.time()
-        self._delete_not_important_features(X_test)
+        X_test = self._delete_not_important_features(X_test)
 
         prediction_lists = np.asarray([tree.predict(X_test) for tree in self._trees])
         predicted = [self._mode(prediction_lists[:, sample]) for sample in range(len(X_test))]
@@ -214,17 +214,18 @@ class RandomForest:
         if new_node.depth < self._max_depth:
             counts = new_node.dataset.counts()
             counts = np.delete(counts, np.argmax(counts))
-            for count in counts:
-                if count > self._min_split_size:
-                    new_node = SplitNode(new_node.dataset, new_node.depth)
-                    self._make_childs(new_node, tree_index)
-                    return new_node
+            if any(count > self._min_split_size for count in counts):
+                new_node = SplitNode(new_node.dataset, new_node.depth)
+                self._make_childs(new_node, tree_index)
+                return new_node
         return new_node
 
     def _get_most_important_features(self):
-        mn = int(np.percentile(self._most_important_features, self._percentile))
+        min_value = int(np.percentile(self._most_important_features, self._percentile))
         self._most_important_features = [idx for idx in range(len(self._most_important_features))
-                                         if self._most_important_features[idx] >= mn]
+                                         if self._most_important_features[idx] > min_value]
+        # TODO: Could it be faster if a dictionary were used to store the most important features? Sort the dictionary
+        # and get the last keys
 
     def _mode(self, values):
         return int(s.mode(values)[0])
