@@ -119,7 +119,7 @@ class RandomForest:
             logger.debug('Tree {} trained in {:.6f} seconds'.format(tree_index + 1, time.time() - start_time2))
         self._get_most_important_features()
         logger.debug('most_important_features: %s', self._most_important_features)
-        logger.info('length most_important_features %s', len(self._most_important_features))
+        logger.info('length most_important_features: %s', len(self._most_important_features))
         logger.info('RandomForest training: {:.6f} seconds'.format(time.time() - start_time1))
 
     def predict(self, X_test, y_test):
