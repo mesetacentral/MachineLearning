@@ -141,7 +141,6 @@ class RandomForest:
 
         start_time = time.time()
         X_test = self._delete_not_important_features(X_test)
-
         prediction_lists = np.asarray([tree.predict(X_test) for tree in self._trees])
         predicted = [self._mode(prediction_lists[:, sample]) for sample in range(len(X_test))]
 
