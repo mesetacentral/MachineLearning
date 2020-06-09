@@ -26,28 +26,31 @@ filename = [
     ["test_labels", "t10k-labels-idx1-ubyte.gz"]
 ]
 
-folder = "MNISTData/"
+folder = "MNISTData"
 
 
 def download_mnist():
     base_url = "http://yann.lecun.com/exdb/mnist/"
-    os.mkdir(folder)
-    for name in filename:
-        print("Downloading " + name[1] + "...")
-        request.urlretrieve(base_url + name[1], name[1])
-        shutil.move(name[1], "MNISTData")
-    print("Download complete.")
+    try:
+        os.mkdir(folder)
+        for name in filename:
+            print("Downloading " + name[1] + "...")
+            request.urlretrieve(base_url + name[1], name[1])
+            shutil.move(name[1], folder)
+        print("Download complete.")
+    except FileExistsError:
+        pass
 
 
 def save_mnist():
     mnist = {}
     for name in filename[:2]:
-        with gzip.open(folder + name[1], 'rb') as f:
+        with gzip.open(folder + "/" + name[1], 'rb') as f:
             mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1, 28 * 28)
     for name in filename[-2:]:
-        with gzip.open(folder + name[1], 'rb') as f:
+        with gzip.open(folder + "/" + name[1], 'rb') as f:
             mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
-    with open(folder + "mnist.pkl", 'wb') as f:
+    with open(folder + "/" + "mnist.pkl", 'wb') as f:
         pickle.dump(mnist, f)
     print("Save complete.")
 
@@ -58,7 +61,7 @@ def download_and_save():
 
 
 def load():
-    with open(folder + "mnist.pkl", 'rb') as f:
+    with open(folder + "/" + "mnist.pkl", 'rb') as f:
         mnist = pickle.load(f)
     return mnist["training_images"], mnist["training_labels"], mnist["test_images"], mnist["test_labels"]
 
