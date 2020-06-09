@@ -109,7 +109,7 @@ class RandomForest:
 
         X_train = self._delete_not_important_features(X_train)
         self._most_important_features = [0] * X_train.shape[1]
-        logger.debug('length non_important_features: %s', len(self._non_important_features))
+        logger.info('length non_important_features: %s', len(self._non_important_features))
         logger.debug('non_important_features = %s', self._non_important_features)
 
         assert not self._trees  # self._trees == []

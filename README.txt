@@ -20,15 +20,15 @@ Description of any hyper parameter can be found in RandomForest.py documentation
 Default hyper parameters for MNIST:
 max_depth = 15
 min_split_size = 5
-ratio_samples = 0.3
-num_trees = 10
+ratio_samples = 0.2
+num_trees = 12
 num_features_node = 28
 coefficient = 'gini'
 percentile = 90
 values = [1]
-min_std_deviation = 5
+min_std_deviation = 80
 
-With these, the execution should take 20s and the accuracy should be of 92%.
+With these, the execution should take 12s and the accuracy should be of 92%.
 
 To debug the program, simply change logger level to logging.DEBUG in RandomForest.py
 _________________________
