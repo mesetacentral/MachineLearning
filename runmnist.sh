@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-python -m ensurepip --default-pip
-pip install numpy
-pip install scipy
+apt-get install python-numpy
+apt-get install python-scipy
 python3 mnist.py
