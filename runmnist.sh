@@ -13,5 +13,5 @@ then
   pip3 install scipy
 fi
 
-python3 mnist.py
+python3 SaveMNIST.py
 python3 ClientMNIST.py

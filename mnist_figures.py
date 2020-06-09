@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 # from mnist import init
 # do init() it just once, to download the four .gz files
-from mnist import load
+from SaveMNIST import load
 
 Xtrain, ytrain, Xtest, ytest = load()
 print('{} train and {} test samples with {} features per sample'

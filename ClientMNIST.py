@@ -1,4 +1,4 @@
-from mnist import load
+from SaveMNIST import load
 import numpy as np
 from RandomForest import RandomForest
 
