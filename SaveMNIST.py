@@ -44,7 +44,7 @@ def download_mnist():
 
 def save_mnist():
     if os.path.isfile(folder + "/" + "mnist.pkl"):
-        print("pickle already had already been made before.")
+        print("pickle has already been made before.")
     else:
         mnist = {}
         for name in filename[:2]:
