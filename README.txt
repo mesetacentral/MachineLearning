@@ -3,6 +3,9 @@ _________________________
 
 EXECUTION INSTRUCTIONS:
 
+To execute the program automatically, run on linux terminal:
+sudo ./runmnist.sh
+
 To download and store MNIST as pickle, run on linux terminal:
 python3 mnist.py
 

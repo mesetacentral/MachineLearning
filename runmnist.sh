@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
-apt-get install python-numpy
-apt-get install python-scipy
+pip3 install scipy
+
 python3 mnist.py
+python3 ClientMNIST.py
