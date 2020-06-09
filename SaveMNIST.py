@@ -43,16 +43,19 @@ def download_mnist():
 
 
 def save_mnist():
-    mnist = {}
-    for name in filename[:2]:
-        with gzip.open(folder + "/" + name[1], 'rb') as f:
-            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1, 28 * 28)
-    for name in filename[-2:]:
-        with gzip.open(folder + "/" + name[1], 'rb') as f:
-            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
-    with open(folder + "/" + "mnist.pkl", 'wb') as f:
-        pickle.dump(mnist, f)
-    print("Save complete.")
+    if os.path.isfile(folder + "/" + "mnist.pkl"):
+        print("pickle already had already been made before.")
+    else:
+        mnist = {}
+        for name in filename[:2]:
+            with gzip.open(folder + "/" + name[1], 'rb') as f:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1, 28 * 28)
+        for name in filename[-2:]:
+            with gzip.open(folder + "/" + name[1], 'rb') as f:
+                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
+        with open(folder + "/" + "mnist.pkl", 'wb') as f:
+            pickle.dump(mnist, f)
+        print("Save complete.")
 
 
 def download_and_save():
