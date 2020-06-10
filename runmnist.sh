@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 vscipy=$(pip show scipy)
 if [ "$vscipy" == '' ];
 then
