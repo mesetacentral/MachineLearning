@@ -43,7 +43,7 @@ def download_mnist():
             shutil.move(name[1], folder)
         logger.info("Download complete.")
     except FileExistsError:
-        logger.info("files have already been downloaded before.")
+        logger.info("Files have already been downloaded before.")
 
 
 def save_mnist():
