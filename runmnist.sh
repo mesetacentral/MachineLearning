@@ -13,5 +13,6 @@ then
   pip3 install scipy
 fi
 
-python3 SaveMNIST.py
+FILE="mnist.pkl"
+test -f $FILE && python3 SaveMNIST.py
 python3 ClientMNIST.py

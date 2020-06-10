@@ -8,6 +8,7 @@ from DataSet import DataSet
 from LeafNode import LeafNode
 from SplitNode import SplitNode
 
+
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
 # logging.basicConfig(filename='logging.log', filemode='w', level=logging.INFO,
 # format='%(process)d-%(levelname)s-%(message)s')  # logging to file

@@ -18,6 +18,10 @@ import gzip
 import pickle
 import os
 import shutil
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+logger = logging.getLogger('Logger')
 
 filename = [
     ["training_images", "train-images-idx3-ubyte.gz"],
@@ -37,25 +41,22 @@ def download_mnist():
             print("Downloading " + name[1] + "...")
             request.urlretrieve(base_url + name[1], name[1])
             shutil.move(name[1], folder)
-        print("Download complete.")
+        logger.info("Download complete.")
     except FileExistsError:
-        print("Files have already been downloaded before.")
+        logger.info("files have already been downloaded before.")
 
 
 def save_mnist():
-    if os.path.isfile(folder + "/" + "mnist.pkl"):
-        print("pickle has already been made before.")
-    else:
-        mnist = {}
-        for name in filename[:2]:
-            with gzip.open(folder + "/" + name[1], 'rb') as f:
-                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1, 28 * 28)
-        for name in filename[-2:]:
-            with gzip.open(folder + "/" + name[1], 'rb') as f:
-                mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
-        with open(folder + "/" + "mnist.pkl", 'wb') as f:
-            pickle.dump(mnist, f)
-        print("Save complete.")
+    mnist = {}
+    for name in filename[:2]:
+        with gzip.open(folder + "/" + name[1], 'rb') as f:
+            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=16).reshape(-1, 28 * 28)
+    for name in filename[-2:]:
+        with gzip.open(folder + "/" + name[1], 'rb') as f:
+            mnist[name[0]] = np.frombuffer(f.read(), np.uint8, offset=8)
+    with open(folder + "/" + "mnist.pkl", 'wb') as f:
+        pickle.dump(mnist, f)
+    logger.info("Save complete.")
 
 
 def download_and_save():

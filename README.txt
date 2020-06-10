@@ -4,6 +4,9 @@ _________________________
 EXECUTION INSTRUCTIONS:
 
 To execute the program automatically:
+./runmnist.sh
+
+If it doesn't work, try:
 sudo ./runmnist.sh
 
 To download and store MNIST as pickle:
