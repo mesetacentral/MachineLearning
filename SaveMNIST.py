@@ -21,6 +21,8 @@ import shutil
 import logging
 
 logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
+# logging.basicConfig(filename='logging.log', filemode='w', level=logging.INFO,
+# format='%(process)d-%(levelname)s-%(message)s')  # logging to file
 logger = logging.getLogger('Logger')
 
 filename = [

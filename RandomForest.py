@@ -9,9 +9,6 @@ from LeafNode import LeafNode
 from SplitNode import SplitNode
 
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s: %(message)s')
-# logging.basicConfig(filename='logging.log', filemode='w', level=logging.INFO,
-# format='%(process)d-%(levelname)s-%(message)s')  # logging to file
 logger = logging.getLogger('Logger')
 
 
@@ -110,7 +107,7 @@ class RandomForest:
 
         X_train = self._delete_not_important_features(X_train)
         self._most_important_features = [0] * X_train.shape[1]
-        logger.info('length non_important_features: %s', len(self._non_important_features))
+        logger.debug('length non_important_features: %s', len(self._non_important_features))
         logger.debug('non_important_features = %s', self._non_important_features)
 
         assert not self._trees  # self._trees == []
