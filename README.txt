@@ -36,5 +36,5 @@ min_std_deviation = 80
 
 With these, the execution should take 12s and the accuracy should be of 92%.
 
-To debug the program, simply change logger level to logging.DEBUG in RandomForest.py
+To debug the program, simply change logger level to logging.DEBUG in SaveMNIST.py
 _________________________
