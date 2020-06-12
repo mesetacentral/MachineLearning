@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-vscipy=$(pip show scipy)
+vscipy=$(pip3 show scipy)
 if [ "$vscipy" == '' ];
 then
   echo "scipy not installed"

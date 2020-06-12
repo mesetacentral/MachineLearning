@@ -19,8 +19,8 @@ X_test, y_test = X[idx_test], y[idx_test]
 # HYPER PARAMETERS
 max_depth = 10
 min_split_size = 5
-ratio_samples = 0.8
-num_trees = 10
+ratio_samples = 0.3
+num_trees = 50
 num_features_node = int(np.sqrt(X_train.shape[1]))
 coefficient = 'gini'
 percentile = 90
